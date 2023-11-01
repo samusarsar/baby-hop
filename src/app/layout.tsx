@@ -13,13 +13,15 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang='en'>
 			<body className={inter.className}>
-				<nav className='flex justify-center min-w-full bg-green-400'>
+				<nav className='flex justify-center min-w-full bg-gray-light dark:bg-black dark:text-white'>
 					<ul className='flex min-w-full justify-evenly'>
 						<li>hi</li>
 						<li>hi</li>
 					</ul>
 				</nav>
-				{children}
+				<main className='bg-light dark:bg-dark dark:text-white'>
+					{children}
+				</main>
 			</body>
 		</html>
 	);
