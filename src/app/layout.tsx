@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 import NavBar from '@/components/navigation/NavBar';
+import AuthProvider from '../components/providers/AuthProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,7 +17,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 			<body className={inter.className}>
 				<NavBar />
 				<main className='min-h-screen bg-light dark:bg-dark dark:text-white'>
-					{children}
+					<AuthProvider>{children}</AuthProvider>
 				</main>
 			</body>
 		</html>

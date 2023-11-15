@@ -1,4 +1,4 @@
-import { NewUserData } from '@/types/types';
+import { NewUserData } from '@/common/types';
 import { checkIfUserExists, createUser } from '@/utils/users.utils';
 
 const useAuth = () => {

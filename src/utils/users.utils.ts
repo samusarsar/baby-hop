@@ -1,6 +1,6 @@
 // 'use server';
 
-import { NewUserData } from '@/types/types';
+import { NewUserData } from '@/common/types';
 import { isUsernameValid } from './validation.utils';
 
 // import User from '@/models/User';

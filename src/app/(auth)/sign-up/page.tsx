@@ -78,7 +78,7 @@ function Signup() {
 				generalErr: false,
 			});
 
-			router.replace('/dashboard');
+			router.replace('/sign-in');
 		} catch (error) {
 			setErrors({
 				...errors,

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import NavLink from '../ui/NavLink';
 import Link from 'next/link';
 
-function NavBar() {
+const NavBar = async () => {
 	return (
 		<nav className='grid grid-cols-10 py-2 px-4 justify-between align-middle min-w-full min-h-[60px] bg-gray-light dark:bg-black dark:text-white border-b-2 border-white'>
 			<div className='col-span-2 flex justify-center'>
@@ -32,6 +32,6 @@ function NavBar() {
 			</div>
 		</nav>
 	);
-}
+};
 
 export default NavBar;
