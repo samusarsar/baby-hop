@@ -29,7 +29,7 @@ function SignIn() {
 		} catch (error: any) {
 			console.log(error.message);
 			if (error.message === 'Invalid credentials') {
-				setError('Invalid credentials');
+				setError('Email and password do not match!');
 			} else {
 				setError(
 					'Could not sign in right now. Please try again later!'
@@ -84,7 +84,8 @@ function SignIn() {
 									xmlns='http://www.w3.org/2000/svg'
 									fill='none'
 									viewBox='0 0 24 24'
-									className='inline-block w-4 h-4 stroke-current'
+									className='inline-block w-4 h-4 stroke-current cursor-pointer'
+									onClick={() => setError('')}
 								>
 									<path
 										strokeLinecap='round'

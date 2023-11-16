@@ -9,7 +9,6 @@ import {
 	isPasswordValid,
 	isUsernameValid,
 } from '@/utils/validation.utils';
-import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import React, { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
 import {
@@ -34,7 +33,7 @@ function Signup() {
 		username: false,
 		email: false,
 		password: false,
-		generalErr: false,
+		generalErr: '',
 	});
 
 	const router = useRouter();
@@ -42,9 +41,17 @@ function Signup() {
 	const { signUp } = useAuth();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		const targetId = e.target.id;
+		const targetValue = e.target.value;
+
+		setErrors({
+			...errors,
+			[targetId]: false,
+		});
+
 		setUserData({
 			...userData,
-			[e.target.id]: e.target.value,
+			[targetId]: targetValue,
 		});
 	};
 
@@ -78,19 +85,30 @@ function Signup() {
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 
+		if (
+			Object.values(errors).some((el) => !!el) ||
+			Object.values(userData).some((el) => !el)
+		) {
+			setErrors({
+				...errors,
+				generalErr: 'Please fill out all fields above first!',
+			});
+			return;
+		}
+
 		try {
 			await signUp(userData);
 
 			setErrors({
 				...errors,
-				generalErr: false,
+				generalErr: '',
 			});
 
 			router.replace('/sign-in');
 		} catch (error) {
 			setErrors({
 				...errors,
-				generalErr: true,
+				generalErr: 'Uh-oh! There was an problem signing up!',
 			});
 		}
 	};
@@ -102,100 +120,125 @@ function Signup() {
 					className='min-w-full'
 					onSubmit={handleSubmit}
 				>
-					<div className='md:flex md:gap-2'>
-						<FormInput
-							label='First Name'
-							isInvalid={!!errors.firstName}
-							error={`First name must be between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH} characters long.`}
-						>
-							<input
-								type='text'
-								id='firstName'
-								className={
-									'input input-bordered w-full max-w-xs text-base-content' +
-									(!!errors.firstName
-										? ' border-2 border-error'
-										: '')
-								}
-								onChange={handleChange}
-								onBlur={handleBlur}
-							/>
-						</FormInput>
-						<FormInput
-							label='Last Name'
-							isInvalid={!!errors.lastName}
-							error={`Last name must be between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH} characters long.`}
-						>
-							<input
-								type='text'
-								id='lastName'
-								className={
-									'input input-bordered w-full max-w-xs text-base-content' +
-									(!!errors.lastName
-										? ' border-2 border-error'
-										: '')
-								}
-								onChange={handleChange}
-								onBlur={handleBlur}
-							/>
-						</FormInput>
+					<div className='mt-2 mb-4'>
+						<div className='md:flex md:gap-2'>
+							<FormInput
+								label='First Name'
+								isInvalid={!!errors.firstName}
+								error={`First name must be between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH} characters long.`}
+							>
+								<input
+									type='text'
+									id='firstName'
+									className={
+										'input input-bordered w-full max-w-xs text-base-content' +
+										(!!errors.firstName
+											? ' border-2 border-error'
+											: '')
+									}
+									onChange={handleChange}
+									onBlur={handleBlur}
+								/>
+							</FormInput>
+							<FormInput
+								label='Last Name'
+								isInvalid={!!errors.lastName}
+								error={`Last name must be between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH} characters long.`}
+							>
+								<input
+									type='text'
+									id='lastName'
+									className={
+										'input input-bordered w-full max-w-xs text-base-content' +
+										(!!errors.lastName
+											? ' border-2 border-error'
+											: '')
+									}
+									onChange={handleChange}
+									onBlur={handleBlur}
+								/>
+							</FormInput>
+						</div>
+						<div>
+							<FormInput
+								label='Username'
+								isInvalid={!!errors.username}
+								error={`Username must be between ${USERNAME_MIN_LENGTH} and ${USERNAME_MAX_LENGTH} characters long.`}
+							>
+								<input
+									type='text'
+									id='username'
+									className={
+										'input input-bordered w-full max-w-xs text-base-content' +
+										(!!errors.username
+											? ' border-2 border-error'
+											: '')
+									}
+									onChange={handleChange}
+									onBlur={handleBlur}
+								/>
+							</FormInput>
+							<FormInput
+								label='Email'
+								isInvalid={!!errors.email}
+								error={'Email must be valid.'}
+							>
+								<input
+									type='text'
+									id='email'
+									className={
+										'input input-bordered w-full max-w-xs text-base-content' +
+										(!!errors.email
+											? ' border-2 border-error'
+											: '')
+									}
+									onChange={handleChange}
+									onBlur={handleBlur}
+								/>
+							</FormInput>
+							<FormInput
+								label='Password'
+								isInvalid={!!errors.password}
+								error={`Password must include an uppercase, lowercase and number character and be over ${PASSWORD_MIN_LENGTH} characters long.`}
+							>
+								<input
+									type='password'
+									id='password'
+									className={
+										'input input-bordered w-full max-w-xs text-base-content' +
+										(!!errors.password
+											? ' border-2 border-error'
+											: '')
+									}
+									onChange={handleChange}
+									onBlur={handleBlur}
+								/>
+							</FormInput>
+						</div>
 					</div>
-					<div>
-						<FormInput
-							label='Username'
-							isInvalid={!!errors.username}
-							error={`Username must be between ${USERNAME_MIN_LENGTH} and ${USERNAME_MAX_LENGTH} characters long.`}
-						>
-							<input
-								type='text'
-								id='username'
-								className={
-									'input input-bordered w-full max-w-xs text-base-content' +
-									(!!errors.username
-										? ' border-2 border-error'
-										: '')
-								}
-								onChange={handleChange}
-								onBlur={handleBlur}
-							/>
-						</FormInput>
-						<FormInput
-							label='Email'
-							isInvalid={!!errors.email}
-							error={'Email must be valid.'}
-						>
-							<input
-								type='text'
-								id='email'
-								className={
-									'input input-bordered w-full max-w-xs text-base-content' +
-									(!!errors.email
-										? ' border-2 border-error'
-										: '')
-								}
-								onChange={handleChange}
-								onBlur={handleBlur}
-							/>
-						</FormInput>
-						<FormInput
-							label='Password'
-							isInvalid={!!errors.password}
-							error={`Password must include an uppercase, lowercase and number character and be over ${PASSWORD_MIN_LENGTH} characters long.`}
-						>
-							<input
-								type='password'
-								id='password'
-								className={
-									'input input-bordered w-full max-w-xs text-base-content' +
-									(!!errors.password
-										? ' border-2 border-error'
-										: '')
-								}
-								onChange={handleChange}
-								onBlur={handleBlur}
-							/>
-						</FormInput>
-					</div>
+					{!!errors.generalErr && (
+						<div className='flex justify-start'>
+							<div className='badge badge-error'>
+								{errors.generalErr}
+								<svg
+									xmlns='http://www.w3.org/2000/svg'
+									fill='none'
+									viewBox='0 0 24 24'
+									className='inline-block w-4 h-4 stroke-current cursor-pointer'
+									onClick={() =>
+										setErrors({ ...errors, generalErr: '' })
+									}
+								>
+									<path
+										strokeLinecap='round'
+										strokeLinejoin='round'
+										strokeWidth='2'
+										d='M6 18L18 6M6 6l12 12'
+									></path>
+								</svg>
+							</div>
+						</div>
+					)}
 					<button className='btn btn-secondary btn-block mt-4'>
 						Sign Up
 					</button>
@@ -210,7 +253,6 @@ function Signup() {
 					</a>
 				</div>
 			</BaseCard>
-			{errors.generalErr && <p>Errors</p>}
 		</div>
 	);
 }
