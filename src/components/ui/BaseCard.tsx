@@ -1,20 +1,27 @@
-function BaseCard({
+import React from 'react';
+
+const BaseCard = ({
 	title,
-	size,
+	cardStyles,
 	children,
 }: {
 	title: string;
-	size?: string;
-	children?: React.ReactNode;
-}) {
+	cardStyles?: string;
+	children: React.ReactNode;
+}) => {
 	return (
-		<div className='rounded bg-gray-dark border-2 border-white w-[500px] flex flex-col justify-center items-center p-10'>
-			<h3 className='text-xl pb-3'>{title}</h3>
-			<div className='flex flex-col justify-center items-center'>
+		<div
+			className={
+				'card md:w-96  bg-neutral text-neutral-content' +
+				(!!cardStyles ? ` ${cardStyles}` : '')
+			}
+		>
+			<div className='card-body items-center text-center'>
+				<h2 className='card-title text-2xl'>{title}</h2>
 				{children}
 			</div>
 		</div>
 	);
-}
+};
 
 export default BaseCard;

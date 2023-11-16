@@ -1,37 +1,106 @@
 import Image from 'next/image';
-import NavLink from '../ui/NavLink';
 import Link from 'next/link';
+import React from 'react';
+import ThemeSwitcher from './ThemeSwitcher';
 
-const NavBar = async () => {
+const NavBar2 = () => {
 	return (
-		<nav className='grid grid-cols-10 py-2 px-4 justify-between align-middle min-w-full min-h-[60px] bg-gray-light dark:bg-black dark:text-white border-b-2 border-white'>
-			<div className='col-span-2 flex justify-center'>
-				<Link href='/'>
-					<Image
-						alt='BabyHop Logo'
-						src='/logo.png'
-						width={80}
-						height={80}
-						priority={true}
-					/>
-				</Link>
+		<div className='drawer'>
+			<input
+				id='my-drawer-3'
+				type='checkbox'
+				className='drawer-toggle'
+			/>
+			<div className='drawer-content flex flex-col'>
+				<div className='navbar bg-base-200 min-h-fit md:px-6 lg:px-8'>
+					<div className='navbar-start'>
+						<div className='flex-none lg:hidden'>
+							<label
+								htmlFor='my-drawer-3'
+								aria-label='open sidebar'
+								className='btn btn-square btn-ghost'
+							>
+								<svg
+									xmlns='http://www.w3.org/2000/svg'
+									fill='none'
+									viewBox='0 0 24 24'
+									className='inline-block w-6 h-6 stroke-current'
+								>
+									<path
+										strokeLinecap='round'
+										strokeLinejoin='round'
+										strokeWidth='2'
+										d='M4 6h16M4 12h16M4 18h16'
+									></path>
+								</svg>
+							</label>
+						</div>
+						<a
+							href='/'
+							className='btn btn-ghost text-xl h-fit hidden lg:block'
+						>
+							<Image
+								alt='BabyHop Logo'
+								src='/logo.png'
+								width={80}
+								height={80}
+								priority={true}
+							/>
+						</a>
+					</div>
+					<div className='navbar-center'>
+						<ul className='menu menu-horizontal px-1 hidden lg:flex'>
+							<li>
+								<Link href='/find'>Find</Link>
+							</li>
+							<li>
+								<Link href='/become'>Become</Link>
+							</li>
+							<li>
+								<Link href='/about'>About</Link>
+							</li>
+						</ul>
+						<a className='btn btn-ghost text-xl h-fit lg:hidden'>
+							<Image
+								alt='BabyHop Logo'
+								src='/logo.png'
+								width={80}
+								height={80}
+								priority={true}
+							/>
+						</a>
+					</div>
+					<div className='navbar-end'>
+						<a
+							href='/sign-in'
+							className='btn btn-accent'
+						>
+							Sign In
+						</a>
+						<ThemeSwitcher />
+					</div>
+				</div>
 			</div>
-			<ul className='col-span-6 flex justify-evenly items-center'>
-				<NavLink to='/'>Home</NavLink>
-				<NavLink to='/find'>Find</NavLink>
-				<NavLink to='/become'>Become</NavLink>
-				<NavLink to='/about'>About</NavLink>
-			</ul>
-			<div className='col-span-2 flex justify-center items-center'>
-				<NavLink
-					to='/sign-in'
-					styles='p-2 rounded bg-yellow text-black hover:bg-orange hover:text-white hover:scale-105 transition-all'
-				>
-					Sign In
-				</NavLink>
+			<div className='drawer-side z-50'>
+				<label
+					htmlFor='my-drawer-3'
+					aria-label='close sidebar'
+					className='drawer-overlay'
+				></label>
+				<ul className='menu p-4 w-80 min-h-full bg-base-200'>
+					<li>
+						<Link href='/find'>Find</Link>
+					</li>
+					<li>
+						<Link href='/become'>Become</Link>
+					</li>
+					<li>
+						<Link href='/about'>About</Link>
+					</li>
+				</ul>
 			</div>
-		</nav>
+		</div>
 	);
 };
 
-export default NavBar;
+export default NavBar2;

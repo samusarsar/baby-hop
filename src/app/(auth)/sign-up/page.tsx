@@ -1,5 +1,6 @@
 'use client';
 
+import FormInput from '@/components/ui/FormInput';
 import BaseCard from '@/components/ui/BaseCard';
 import useAuth from '@/hooks/useAuth';
 import {
@@ -11,6 +12,13 @@ import {
 import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import React, { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
+import {
+	NAME_MAX_LENGTH,
+	NAME_MIN_LENGTH,
+	PASSWORD_MIN_LENGTH,
+	USERNAME_MAX_LENGTH,
+	USERNAME_MIN_LENGTH,
+} from '@/common/constants';
 
 function Signup() {
 	const [userData, setUserData] = useState({
@@ -89,80 +97,114 @@ function Signup() {
 
 	return (
 		<div>
-			<BaseCard title='SIGN UP'>
+			<BaseCard title='Sign up to join'>
 				<form
 					className='min-w-full'
 					onSubmit={handleSubmit}
 				>
-					<div className='my-2'>
-						<div className='flex gap-2'>
-							<div className='flex flex-col gap-1 my-2'>
-								<label htmlFor='firstName'>First Name:</label>
-								<input
-									type='text'
-									name='firstName'
-									id='firstName'
-									className='text-dark'
-									onChange={handleChange}
-									onBlur={handleBlur}
-								/>
-								{errors.firstName && <p>ERR</p>}
-							</div>
-							<div className='flex flex-col gap-1 my-2'>
-								<label htmlFor='lastName'>Last Name:</label>
-								<input
-									type='text'
-									name='lastName'
-									id='lastName'
-									className='text-dark'
-									onChange={handleChange}
-									onBlur={handleBlur}
-								/>
-							</div>
-						</div>
-						<div className='flex flex-col gap-1 my-2'>
-							<label htmlFor='username'>Username:</label>
+					<div className='md:flex md:gap-2'>
+						<FormInput
+							label='First Name'
+							isInvalid={!!errors.firstName}
+							error={`First name must be between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH} characters long.`}
+						>
 							<input
 								type='text'
-								name='username'
-								id='username'
-								className='text-dark'
+								id='firstName'
+								className={
+									'input input-bordered w-full max-w-xs text-base-content' +
+									(!!errors.firstName
+										? ' border-2 border-error'
+										: '')
+								}
 								onChange={handleChange}
 								onBlur={handleBlur}
 							/>
-						</div>
-						<div className='flex flex-col gap-1 my-2'>
-							<label htmlFor='email'>Email:</label>
-							<input
-								type='email'
-								name='email'
-								id='email'
-								className='text-dark'
-								onChange={handleChange}
-								onBlur={handleBlur}
-							/>
-						</div>
-						<div className='flex flex-col gap-1 my-2'>
-							<label htmlFor='password'>Password:</label>
+						</FormInput>
+						<FormInput
+							label='Last Name'
+							isInvalid={!!errors.lastName}
+							error={`Last name must be between ${NAME_MIN_LENGTH} and ${NAME_MAX_LENGTH} characters long.`}
+						>
 							<input
 								type='text'
-								name='password'
-								id='password'
-								className='text-dark'
+								id='lastName'
+								className={
+									'input input-bordered w-full max-w-xs text-base-content' +
+									(!!errors.lastName
+										? ' border-2 border-error'
+										: '')
+								}
 								onChange={handleChange}
 								onBlur={handleBlur}
 							/>
-						</div>
+						</FormInput>
 					</div>
-					<button className='p-1 w-full rounded-md bg-yellow text-black hover:bg-orange hover:text-white transition-all'>
-						Create Account
+					<div>
+						<FormInput
+							label='Username'
+							isInvalid={!!errors.username}
+							error={`Username must be between ${USERNAME_MIN_LENGTH} and ${USERNAME_MAX_LENGTH} characters long.`}
+						>
+							<input
+								type='text'
+								id='username'
+								className={
+									'input input-bordered w-full max-w-xs text-base-content' +
+									(!!errors.username
+										? ' border-2 border-error'
+										: '')
+								}
+								onChange={handleChange}
+								onBlur={handleBlur}
+							/>
+						</FormInput>
+						<FormInput
+							label='Email'
+							isInvalid={!!errors.email}
+							error={'Email must be valid.'}
+						>
+							<input
+								type='text'
+								id='email'
+								className={
+									'input input-bordered w-full max-w-xs text-base-content' +
+									(!!errors.email
+										? ' border-2 border-error'
+										: '')
+								}
+								onChange={handleChange}
+								onBlur={handleBlur}
+							/>
+						</FormInput>
+						<FormInput
+							label='Password'
+							isInvalid={!!errors.password}
+							error={`Password must include an uppercase, lowercase and number character and be over ${PASSWORD_MIN_LENGTH} characters long.`}
+						>
+							<input
+								type='password'
+								id='password'
+								className={
+									'input input-bordered w-full max-w-xs text-base-content' +
+									(!!errors.password
+										? ' border-2 border-error'
+										: '')
+								}
+								onChange={handleChange}
+								onBlur={handleBlur}
+							/>
+						</FormInput>
+					</div>
+					<button className='btn btn-secondary btn-block mt-4'>
+						Sign In
 					</button>
 				</form>
 				<div className='py-2'>
 					Already a member?{' '}
 					<a
 						href='/sign-in'
-						className='text-purple hover:brightness-150'
+						className='link link-accent'
 					>
 						Sign in now!
 					</a>

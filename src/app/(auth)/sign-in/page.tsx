@@ -4,6 +4,7 @@ import BaseCard from '@/components/ui/BaseCard';
 import { useRouter } from 'next/navigation';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { signIn } from 'next-auth/react';
+import FormInput from '@/components/ui/FormInput';
 
 function SignIn() {
 	const [userData, setUserData] = useState({
@@ -22,6 +23,7 @@ function SignIn() {
 	};
 
 	const handleSubmit = async (e: FormEvent) => {
+		console.log(userData);
 		e.preventDefault();
 
 		try {
@@ -43,35 +45,48 @@ function SignIn() {
 
 	return (
 		<div>
-			<BaseCard title='SIGN IN'>
+			<BaseCard
+				title='Sign into your account'
+				cardStyles='shadow-xl'
+			>
 				<form
 					className='min-w-full'
 					onSubmit={handleSubmit}
 				>
-					<div className='my-2'>
-						<div className='flex flex-col gap-1'>
-							<label htmlFor='email'>Email:</label>
+					<div className='mt-2 mb-4'>
+						<FormInput
+							label='Email'
+							isInvalid={!!error}
+						>
 							<input
 								type='text'
-								name='email'
 								id='email'
-								className='text-black'
+								className={
+									'input input-bordered w-full max-w-xs text-base-content' +
+									(!!error ? ' border-2 border-error' : '')
+								}
 								onChange={handleChange}
 							/>
-						</div>
-						<div className='flex flex-col gap-1'>
-							<label htmlFor='password'>Password:</label>
+						</FormInput>
+						<FormInput
+							label='Password'
+							isInvalid={!!error}
+						>
 							<input
-								type='text'
-								name='password'
+								type='password'
 								id='password'
-								className='text-black'
+								className={
+									'input input-bordered w-full max-w-xs text-base-content' +
+									(!!error ? ' border-2 border-error' : '')
+								}
 								onChange={handleChange}
 							/>
-						</div>
+						</FormInput>
 					</div>
-					{error && <div className='text-red'>{error}</div>}
-					<button className='p-1 w-full rounded-md bg-yellow text-black hover:bg-orange hover:text-white transition-all'>
+					{error && (
+						<div className='text-start text-error'>{error}</div>
+					)}
+					<button className='btn btn-accent btn-block'>
 						Sign In
 					</button>
 				</form>
@@ -79,7 +94,7 @@ function SignIn() {
 					Not yet a member?{' '}
 					<a
 						href='/sign-up'
-						className='text-purple hover:brightness-150'
+						className='link link-primary'
 					>
 						Sign up now!
 					</a>
