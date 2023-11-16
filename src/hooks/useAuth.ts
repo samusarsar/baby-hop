@@ -62,7 +62,6 @@ const useAuth = () => {
 		await signOutNextAuth();
 
 		dispatch(signOutSuccess());
-		router.replace('/');
 	};
 
 	return {
