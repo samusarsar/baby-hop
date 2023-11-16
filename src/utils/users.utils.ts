@@ -1,31 +1,37 @@
+'use server';
+
 import { NewUserData } from '@/common/types';
+import connect from '@/lib/connect-db';
+import User from '@/models/User';
+import bcrypt from 'bcryptjs';
 
 export const createUser = async (userData: NewUserData) => {
-	return await fetch('api/register', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(userData),
+	await connect();
+
+	const { firstName, lastName, username, email, password } = await userData;
+
+	const hashedPassword = await bcrypt.hash(password, 10);
+	await User.create({
+		firstName,
+		lastName,
+		username,
+		email,
+		password: hashedPassword,
 	});
 };
 
 export const checkIfUserExists = async (email: string) => {
-	return await fetch('api/userExists', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ email }),
-	});
+	await connect();
+
+	return await User.findOne({
+		email,
+	}).select('_id');
 };
 
 export const getUser = async (email: string) => {
-	return await fetch('api/getUser', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ email }),
+	await connect();
+
+	return await User.findOne({
+		email,
 	});
 };

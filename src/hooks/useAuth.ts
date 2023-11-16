@@ -13,27 +13,19 @@ const useAuth = () => {
 	const router = useRouter();
 
 	const signUp = async (userData: NewUserData) => {
-		let resUserExists;
+		let userExists;
 		try {
-			resUserExists = await checkIfUserExists(userData.email);
+			userExists = await checkIfUserExists(userData.email);
 		} catch (error) {
 			throw new Error(
 				'Could not complete registration. Please try again later!'
 			);
 		}
 
-		const { user } = await resUserExists.json();
-
-		if (user) throw new Error('User already exists!');
-
-		let resUserRegistered;
+		if (userExists) throw new Error('User already exists!');
 
 		try {
-			resUserRegistered = await createUser(userData);
-
-			if (!resUserRegistered.ok) {
-				throw new Error();
-			}
+			await createUser(userData);
 		} catch (error) {
 			throw new Error(
 				'Could not complete registration. Please try again later!'
@@ -50,17 +42,15 @@ const useAuth = () => {
 		if (res?.error) {
 			throw new Error('Invalid credentials');
 		} else {
-			const resUserData = await getUser(userCredentials.email);
-			const userData = await resUserData.json();
-
-			dispatch(signInSuccess(userData));
+			const userData = await getUser(userCredentials.email);
 			router.replace('/dashboard');
+			dispatch(signInSuccess(userData));
 		}
 	};
 
 	const signOut = async () => {
 		await signOutNextAuth();
-
+		router.replace('/sign-in');
 		dispatch(signOutSuccess());
 	};
 
