@@ -6,6 +6,7 @@ import React from 'react';
 import ThemeSwitcher from './ThemeSwitcher';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
+import UserMenu from './UserMenu';
 
 const NavBar = () => {
 	const { signedIn, userData } = useSelector(
@@ -83,7 +84,7 @@ const NavBar = () => {
 					</div>
 					<div className='navbar-end'>
 						{signedIn ? (
-							<p>{userData.username}</p>
+							<UserMenu userData={userData} />
 						) : (
 							<a
 								href='/sign-in'
@@ -92,7 +93,9 @@ const NavBar = () => {
 								Sign In
 							</a>
 						)}
-						<ThemeSwitcher />
+						<div className='hidden md:contents'>
+							<ThemeSwitcher />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -102,7 +105,13 @@ const NavBar = () => {
 					aria-label='close sidebar'
 					className='drawer-overlay'
 				></label>
+
 				<ul className='menu p-4 w-80 min-h-full bg-base-200'>
+					<li className='py-3 px-1'>
+						<div className='contents md:hidden'>
+							<ThemeSwitcher />
+						</div>
+					</li>
 					<li>
 						<Link href='/find'>Find</Link>
 					</li>
