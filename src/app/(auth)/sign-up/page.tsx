@@ -197,7 +197,7 @@ function Signup() {
 						</FormInput>
 					</div>
 					<button className='btn btn-secondary btn-block mt-4'>
-						Sign In
+						Sign Up
 					</button>
 				</form>
 				<div className='py-2'>

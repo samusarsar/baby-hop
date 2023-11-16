@@ -11,8 +11,6 @@ const ThemeSwitcher = () => {
 		window.localStorage.setItem('isdark', JSON.stringify(isdark));
 	}, [isdark]);
 
-	console.log(window.localStorage.getItem('isdark'));
-
 	return (
 		<div className='h-full flex px-2'>
 			<label className='swap swap-rotate'>

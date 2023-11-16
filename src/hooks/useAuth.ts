@@ -1,7 +1,17 @@
-import { NewUserData } from '@/common/types';
-import { checkIfUserExists, createUser } from '@/utils/users.utils';
+import { NewUserData, UserCredentials } from '@/common/types';
+import { signInSuccess, signOutSuccess } from '@/store/slices/authSlice';
+import { checkIfUserExists, createUser, getUser } from '@/utils/users.utils';
+import {
+	signIn as signInNextAuth,
+	signOut as signOutNextAuth,
+} from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 
 const useAuth = () => {
+	const dispatch = useDispatch();
+	const router = useRouter();
+
 	const signUp = async (userData: NewUserData) => {
 		let resUserExists;
 		try {
@@ -31,8 +41,34 @@ const useAuth = () => {
 		}
 	};
 
+	const signIn = async (userCredentials: UserCredentials) => {
+		const res = await signInNextAuth('credentials', {
+			...userCredentials,
+			redirect: false,
+		});
+
+		if (res?.error) {
+			throw new Error('Invalid credentials');
+		} else {
+			const resUserData = await getUser(userCredentials.email);
+			const userData = await resUserData.json();
+
+			dispatch(signInSuccess(userData));
+			router.replace('/dashboard');
+		}
+	};
+
+	const signOut = async () => {
+		await signOutNextAuth();
+
+		dispatch(signOutSuccess());
+		router.replace('/');
+	};
+
 	return {
 		signUp,
+		signIn,
+		signOut,
 	};
 };
 

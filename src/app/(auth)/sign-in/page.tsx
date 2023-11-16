@@ -1,10 +1,9 @@
 'use client';
 
 import BaseCard from '@/components/ui/BaseCard';
-import { useRouter } from 'next/navigation';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { signIn } from 'next-auth/react';
 import FormInput from '@/components/ui/FormInput';
+import useAuth from '@/hooks/useAuth';
 
 function SignIn() {
 	const [userData, setUserData] = useState({
@@ -13,7 +12,7 @@ function SignIn() {
 	});
 	const [error, setError] = useState('');
 
-	const router = useRouter();
+	const { signIn } = useAuth();
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setUserData({
@@ -23,23 +22,19 @@ function SignIn() {
 	};
 
 	const handleSubmit = async (e: FormEvent) => {
-		console.log(userData);
 		e.preventDefault();
 
 		try {
-			const res = await signIn('credentials', {
-				...userData,
-				redirect: false,
-			});
-
-			if (res?.error) {
-				setError('Invalid credentials');
+			await signIn(userData);
+		} catch (error: any) {
+			if (error.message === 'Invalid credentials!') {
+				setError('Invalid credentials!');
 			} else {
-				setError('');
-				router.replace('/dashboard');
+				console.error(error.message);
+				setError(
+					'Could not sign in right now. Please try again later!'
+				);
 			}
-		} catch (error) {
-			setError('Could not sign in right now. Please try again later!');
 		}
 	};
 

@@ -1,9 +1,17 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import ThemeSwitcher from './ThemeSwitcher';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
-const NavBar2 = () => {
+const NavBar = () => {
+	const { signedIn, userData } = useSelector(
+		(state: RootState) => state.auth
+	);
+
 	return (
 		<div className='drawer'>
 			<input
@@ -60,7 +68,10 @@ const NavBar2 = () => {
 								<Link href='/about'>About</Link>
 							</li>
 						</ul>
-						<a className='btn btn-ghost text-xl h-fit lg:hidden'>
+						<a
+							href='/'
+							className='btn btn-ghost text-xl h-fit lg:hidden'
+						>
 							<Image
 								alt='BabyHop Logo'
 								src='/logo.png'
@@ -71,12 +82,16 @@ const NavBar2 = () => {
 						</a>
 					</div>
 					<div className='navbar-end'>
-						<a
-							href='/sign-in'
-							className='btn btn-accent'
-						>
-							Sign In
-						</a>
+						{signedIn ? (
+							<p>{userData.username}</p>
+						) : (
+							<a
+								href='/sign-in'
+								className='btn btn-accent'
+							>
+								Sign In
+							</a>
+						)}
 						<ThemeSwitcher />
 					</div>
 				</div>
@@ -103,4 +118,4 @@ const NavBar2 = () => {
 	);
 };
 
-export default NavBar2;
+export default NavBar;
