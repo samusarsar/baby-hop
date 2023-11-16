@@ -12,10 +12,12 @@ export type UserCredentials = {
 };
 
 export interface UserData {
+	id: string;
 	firstName: string;
 	lastName: string;
 	username: string;
 	email: string;
 	avatarUrl?: string;
 	createdAt: string;
+	updatedAt: string;
 }

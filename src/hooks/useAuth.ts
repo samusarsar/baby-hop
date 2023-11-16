@@ -40,9 +40,11 @@ const useAuth = () => {
 		});
 
 		if (res?.error) {
+			console.log('hit');
 			throw new Error('Invalid credentials');
 		} else {
 			const userData = await getUser(userCredentials.email);
+
 			router.replace('/dashboard');
 			dispatch(signInSuccess(userData));
 		}

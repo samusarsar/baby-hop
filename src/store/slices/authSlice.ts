@@ -8,12 +8,14 @@ interface IInitialState {
 
 const initialState: IInitialState = {
 	userData: {
+		id: '',
 		firstName: '',
 		lastName: '',
 		username: '',
 		email: '',
 		avatarUrl: '',
 		createdAt: '',
+		updatedAt: '',
 	},
 	signedIn: false,
 };
@@ -24,17 +26,24 @@ const authSlice = createSlice({
 	reducers: {
 		signInSuccess(state, action) {
 			state.signedIn = true;
-			state.userData = action.payload;
+			state.userData = {
+				...state.userData,
+				...action.payload,
+			};
 		},
 		signOutSuccess(state) {
 			state.signedIn = false;
 			state.userData = initialState.userData;
 		},
-		setUserData(state, action) {
-			state.userData = action.payload;
+		updateUserData(state, action) {
+			state.userData = {
+				...state.userData,
+				...action.payload,
+			};
 		},
 	},
 });
 
-export const { signInSuccess, signOutSuccess, setUserData } = authSlice.actions;
+export const { signInSuccess, signOutSuccess, updateUserData } =
+	authSlice.actions;
 export default authSlice.reducer;

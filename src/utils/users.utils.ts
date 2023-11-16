@@ -31,7 +31,19 @@ export const checkIfUserExists = async (email: string) => {
 export const getUser = async (email: string) => {
 	await connect();
 
-	return await User.findOne({
+	const res = await User.findOne({
 		email,
 	});
+
+	const userData = {
+		id: res._id.toString(),
+		firstName: res.firstName,
+		lastName: res.lastName,
+		username: res.username,
+		email: res.email,
+		createdAt: res.createdAt.toString(),
+		updatedAt: res.updatedAt.toString(),
+	};
+
+	return userData;
 };
