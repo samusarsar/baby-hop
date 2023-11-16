@@ -1,15 +1,13 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import { toggleTheme } from '@/store/slices/themeSlice';
+import { RootState } from '@/store/store';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ThemeSwitcher = () => {
-	const [isdark, setIsdark] = useState<boolean>(
-		!!JSON.parse(window.localStorage.getItem('isdark') ?? '')
-	);
+	const { isDark } = useSelector((state: RootState) => state.theme);
 
-	useEffect(() => {
-		window.localStorage.setItem('isdark', JSON.stringify(isdark));
-	}, [isdark]);
+	const dispatch = useDispatch();
 
 	return (
 		<div className='h-full flex px-2'>
@@ -17,10 +15,10 @@ const ThemeSwitcher = () => {
 				{/* this hidden checkbox controls the state */}
 				<input
 					type='checkbox'
-					checked={!!isdark}
+					checked={!!isDark}
 					className='theme-controller'
 					value='dim'
-					onChange={() => setIsdark(!isdark)}
+					onChange={() => dispatch(toggleTheme())}
 				/>
 
 				{/* sun icon */}
