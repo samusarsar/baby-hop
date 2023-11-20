@@ -18,7 +18,7 @@ const UserMenu = ({ userData }: { userData: UserData }) => {
 						'avatar ' + (!userData.avatarUrl ? 'placeholder' : '')
 					}
 				>
-					<div className='bg-success text-success-content w-12 rounded-full border-1'>
+					<div className='bg-success text-success-content w-12 rounded-full border-1 cursor-pointer'>
 						{userData.avatarUrl ? (
 							<img
 								src={userData.avatarUrl}

@@ -107,6 +107,30 @@ const NavBar = () => {
 				></label>
 
 				<ul className='menu p-4 w-80 min-h-full bg-base-200'>
+					<li>
+						<div className='flex justify-end'>
+							<label
+								htmlFor='my-drawer-3'
+								aria-label='close sidebar'
+								className='drawer-overlay'
+							>
+								<svg
+									xmlns='http://www.w3.org/2000/svg'
+									className='h-6 w-6'
+									fill='none'
+									viewBox='0 0 24 24'
+									stroke='currentColor'
+								>
+									<path
+										strokeLinecap='round'
+										strokeLinejoin='round'
+										strokeWidth='2'
+										d='M6 18L18 6M6 6l12 12'
+									/>
+								</svg>
+							</label>
+						</div>
+					</li>
 					<li className='py-3 px-1'>
 						<div className='contents md:hidden'>
 							<ThemeSwitcher />
