@@ -13,6 +13,8 @@ const NavBar = () => {
 		(state: RootState) => state.auth
 	);
 
+	const { isDark } = useSelector((state: RootState) => state.theme);
+
 	return (
 		<div className='drawer'>
 			<input
@@ -50,8 +52,12 @@ const NavBar = () => {
 						>
 							<Image
 								alt='BabyHop Logo'
-								src='/logo.png'
-								width={80}
+								src={
+									isDark
+										? '/logo_text.png'
+										: '/logo_dark_text.png'
+								}
+								width={200}
 								height={80}
 								priority={true}
 							/>
