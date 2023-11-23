@@ -2,6 +2,7 @@ import { UserData } from '@/common/types';
 import useAuth from '@/hooks/useAuth';
 import React from 'react';
 import ThemeSwitcher from './ThemeSwitcher';
+import Link from 'next/link';
 
 const UserMenu = ({ userData }: { userData: UserData }) => {
 	const { signOut } = useAuth();
@@ -36,18 +37,18 @@ const UserMenu = ({ userData }: { userData: UserData }) => {
 			>
 				<li className='menu-title'>{userData.username}</li>
 				<li>
-					<a href={`/profile/${userData.username}`}>Profile</a>
+					<Link href={`/profile/${userData.username}`}>Profile</Link>
 				</li>
 				<li>
-					<a href='/bookings'>My Bookings</a>
+					<Link href='/bookings'>My Bookings</Link>
 				</li>
 				<li>
-					<a
+					<button
 						className='bg-error text-error-content hover:bg-error hover:text-error-content hover:brightness-75'
 						onClick={signOut}
 					>
 						Log Out
-					</a>
+					</button>
 				</li>
 			</ul>
 		</div>
