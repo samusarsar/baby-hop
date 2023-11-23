@@ -26,6 +26,10 @@ const useAuth = () => {
 
 		try {
 			await createUser(userData);
+			await signIn({
+				email: userData.email,
+				password: userData.password,
+			});
 		} catch (error) {
 			throw new Error(
 				'Could not complete registration. Please try again later!'
@@ -40,7 +44,6 @@ const useAuth = () => {
 		});
 
 		if (res?.error) {
-			console.log('hit');
 			throw new Error('Invalid credentials');
 		} else {
 			const userData = await getUser(userCredentials.email);
@@ -52,7 +55,6 @@ const useAuth = () => {
 
 	const signOut = async () => {
 		await signOutNextAuth();
-		router.replace('/sign-in');
 		dispatch(signOutSuccess());
 	};
 

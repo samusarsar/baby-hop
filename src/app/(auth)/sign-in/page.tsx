@@ -4,6 +4,7 @@ import BaseCard from '@/components/ui/BaseCard';
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import FormInput from '@/components/ui/FormInput';
 import useAuth from '@/hooks/useAuth';
+import Link from 'next/link';
 
 function SignIn() {
 	const [userData, setUserData] = useState({
@@ -11,6 +12,7 @@ function SignIn() {
 		password: '',
 	});
 	const [error, setError] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 
 	const { signIn } = useAuth();
 
@@ -25,6 +27,7 @@ function SignIn() {
 		e.preventDefault();
 
 		try {
+			setIsLoading(true);
 			await signIn(userData);
 		} catch (error: any) {
 			console.log(error.message);
@@ -35,6 +38,8 @@ function SignIn() {
 					'Could not sign in right now. Please try again later!'
 				);
 			}
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -97,18 +102,26 @@ function SignIn() {
 							</div>
 						</div>
 					)}
-					<button className='btn btn-accent btn-block mt-4'>
-						Sign In
+					<button
+						className={`btn btn-accent btn-block mt-4${
+							isLoading ? ' btn-disabled' : ''
+						}`}
+					>
+						{!isLoading ? (
+							'Sign In'
+						) : (
+							<span className='loading loading-dots loading-lg text-base-100'></span>
+						)}
 					</button>
 				</form>
 				<div className='py-2'>
 					Not yet a member?{' '}
-					<a
+					<Link
 						href='/sign-up'
 						className='link link-primary'
 					>
 						Sign up now!
-					</a>
+					</Link>
 				</div>
 			</BaseCard>
 		</div>

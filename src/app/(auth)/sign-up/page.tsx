@@ -18,6 +18,7 @@ import {
 	USERNAME_MAX_LENGTH,
 	USERNAME_MIN_LENGTH,
 } from '@/common/constants';
+import Link from 'next/link';
 
 function Signup() {
 	const [userData, setUserData] = useState({
@@ -35,6 +36,7 @@ function Signup() {
 		password: false,
 		generalErr: '',
 	});
+	const [isLoading, setIsLoading] = useState(false);
 
 	const router = useRouter();
 
@@ -97,19 +99,20 @@ function Signup() {
 		}
 
 		try {
+			setIsLoading(true);
 			await signUp(userData);
 
 			setErrors({
 				...errors,
 				generalErr: '',
 			});
-
-			router.replace('/sign-in');
 		} catch (error) {
 			setErrors({
 				...errors,
 				generalErr: 'Uh-oh! There was an problem signing up!',
 			});
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -239,18 +242,26 @@ function Signup() {
 							</div>
 						</div>
 					)}
-					<button className='btn btn-secondary btn-block mt-4'>
-						Sign Up
+					<button
+						className={`btn btn-accent btn-block mt-4${
+							isLoading ? ' btn-disabled' : ''
+						}`}
+					>
+						{!isLoading ? (
+							'Sign Up'
+						) : (
+							<span className='loading loading-dots loading-lg text-base-100'></span>
+						)}
 					</button>
 				</form>
 				<div className='py-2'>
 					Already a member?{' '}
-					<a
+					<Link
 						href='/sign-in'
 						className='link link-accent'
 					>
 						Sign in now!
-					</a>
+					</Link>
 				</div>
 			</BaseCard>
 		</div>
