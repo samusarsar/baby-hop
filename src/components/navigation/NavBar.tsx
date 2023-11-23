@@ -46,7 +46,7 @@ const NavBar = () => {
 								</svg>
 							</label>
 						</div>
-						<a
+						<Link
 							href='/'
 							className='btn btn-ghost text-xl h-fit hidden lg:block'
 						>
@@ -61,7 +61,7 @@ const NavBar = () => {
 								height={80}
 								priority={true}
 							/>
-						</a>
+						</Link>
 					</div>
 					<div className='navbar-center'>
 						<ul className='menu menu-horizontal px-1 hidden lg:flex'>
@@ -75,7 +75,7 @@ const NavBar = () => {
 								<Link href='/about'>About</Link>
 							</li>
 						</ul>
-						<a
+						<Link
 							href='/'
 							className='btn btn-ghost text-xl h-fit lg:hidden'
 						>
@@ -86,18 +86,18 @@ const NavBar = () => {
 								height={80}
 								priority={true}
 							/>
-						</a>
+						</Link>
 					</div>
 					<div className='navbar-end'>
 						{signedIn ? (
 							<UserMenu userData={userData} />
 						) : (
-							<a
+							<Link
 								href='/sign-in'
 								className='btn btn-accent'
 							>
 								Sign In
-							</a>
+							</Link>
 						)}
 						<div className='hidden md:contents'>
 							<ThemeSwitcher />
