@@ -10,7 +10,7 @@ const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
 	if (session) redirect('/dashboard');
 
 	return (
-		<section className='flex justify-center items-center py-20 min-h-screen bg-gradient-to-r from-accent to-success'>
+		<section className='flex justify-center items-center py-20 min-h-full bg-gradient-to-r from-accent to-success'>
 			{children}
 		</section>
 	);
