@@ -243,7 +243,7 @@ function Signup() {
 						</div>
 					)}
 					<button
-						className={`btn btn-accent btn-block mt-4${
+						className={`btn btn-primary btn-block mt-4${
 							isLoading ? ' btn-disabled' : ''
 						}`}
 					>

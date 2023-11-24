@@ -43,6 +43,7 @@ const TopHero = () => {
 									alt='logo'
 									height={50}
 									width={300}
+									priority={true}
 								></Image>
 							</div>
 						</h1>
