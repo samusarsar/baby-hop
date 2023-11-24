@@ -20,7 +20,7 @@ const TopHero = () => {
 	}, []);
 
 	return (
-		<div className='hero min-h-screen bg-gradient-to-r from-primary to-accent'>
+		<div className='hero min-h-screen bg-gradient-to-r from-accent to-success'>
 			<div className='hero-overlay bg-opacity-50'></div>
 			<div
 				className={
@@ -52,9 +52,25 @@ const TopHero = () => {
 							dedicated Babyssistants will have you and your tiny
 							boss covered for the gear and equipment you need!
 						</p>
-						<button className='btn btn-primary 2xl:btn-lg'>
-							Find Gear
-						</button>
+						<form>
+							<label
+								htmlFor='default-search'
+								className='mb-2 text-sm sr-only'
+							>
+								Search
+							</label>
+							<div className='join'>
+								<input
+									className='input input-bordered input-accent join-item focus:aria-none'
+									placeholder='Search for gear'
+								/>
+								<div className='indicator'>
+									<button className='btn btn-primary join-item'>
+										Find Gear
+									</button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
