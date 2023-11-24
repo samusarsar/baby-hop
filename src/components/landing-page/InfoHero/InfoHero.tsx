@@ -11,7 +11,12 @@ const InfoHero = () => {
 		);
 
 		return () => {
-			staggerAnimation(styles.show, elementsToAnimate);
+			staggerAnimation(
+				styles.show,
+				elementsToAnimate,
+				styles.hidden,
+				styles['after-entry']
+			);
 		};
 	}, []);
 

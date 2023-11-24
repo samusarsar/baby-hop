@@ -22,3 +22,11 @@
 .hidden:nth-child(3) {
 	transition-delay: 600ms;
 }
+
+.after-entry {
+	transition: all 150ms;
+}
+
+.after-entry:hover {
+	transform: scale(1.05);
+}
