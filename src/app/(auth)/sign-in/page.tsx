@@ -1,30 +1,22 @@
 'use client';
 
 import BaseCard from '@/components/ui/BaseCard';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState } from 'react';
 import FormInput from '@/components/ui/FormInput';
 import useAuth from '@/hooks/useAuth';
 import Link from 'next/link';
 
 function SignIn() {
-	const [userData, setUserData] = useState({
-		email: '',
-		password: '',
-	});
 	const [error, setError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
 	const { signIn } = useAuth();
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-		setUserData({
-			...userData,
-			[e.target.id]: e.target.value,
-		});
-	};
-
-	const handleSubmit = async (e: FormEvent) => {
-		e.preventDefault();
+	const handleSubmit = async (data: FormData) => {
+		const userData = {
+			email: (data.get('email') || '') as string,
+			password: (data.get('password') || '') as string,
+		};
 
 		try {
 			setIsLoading(true);
@@ -51,33 +43,29 @@ function SignIn() {
 			>
 				<form
 					className='min-w-full'
-					onSubmit={handleSubmit}
+					action={handleSubmit}
 				>
 					<div className='mt-2 mb-4'>
 						<FormInput label='Email'>
 							<input
 								type='text'
 								id='email'
+								name='email'
 								className={
 									'input input-bordered w-full max-w-xs text-base-content' +
-									(!!error && !userData.email
-										? ' border-2 border-error'
-										: '')
+									(!!error ? ' border-2 border-error' : '')
 								}
-								onChange={handleChange}
 							/>
 						</FormInput>
 						<FormInput label='Password'>
 							<input
 								type='password'
 								id='password'
+								name='password'
 								className={
 									'input input-bordered w-full max-w-xs text-base-content' +
-									(!!error && !userData.password
-										? ' border-2 border-error'
-										: '')
+									(!!error ? ' border-2 border-error' : '')
 								}
-								onChange={handleChange}
 							/>
 						</FormInput>
 					</div>
