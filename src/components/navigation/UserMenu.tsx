@@ -1,7 +1,6 @@
 import { UserData } from '@/common/types';
 import useAuth from '@/hooks/useAuth';
 import React from 'react';
-import ThemeSwitcher from './ThemeSwitcher';
 import Link from 'next/link';
 
 const UserMenu = ({ userData }: { userData: UserData }) => {

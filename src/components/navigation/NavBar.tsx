@@ -18,16 +18,16 @@ const NavBar = () => {
 	return (
 		<div className='drawer'>
 			<input
-				id='my-drawer-3'
+				id='main-nav'
 				type='checkbox'
 				className='drawer-toggle'
 			/>
 			<div className='drawer-content flex flex-col'>
-				<div className='navbar bg-base-300 h-[87px] md:px-6 lg:px-8'>
+				<div className='navbar bg-base-300 h-[87px] md:px-6 lg:px-8 border-b-2 border-base-neutral'>
 					<div className='navbar-start'>
 						<div className='flex-none lg:hidden'>
 							<label
-								htmlFor='my-drawer-3'
+								htmlFor='main-nav'
 								aria-label='open sidebar'
 								className='btn btn-square btn-ghost'
 							>
@@ -107,7 +107,7 @@ const NavBar = () => {
 			</div>
 			<div className='drawer-side z-50'>
 				<label
-					htmlFor='my-drawer-3'
+					htmlFor='main-nav'
 					aria-label='close sidebar'
 					className='drawer-overlay'
 				></label>
@@ -116,7 +116,7 @@ const NavBar = () => {
 					<li>
 						<div className='flex justify-end'>
 							<label
-								htmlFor='my-drawer-3'
+								htmlFor='main-nav'
 								aria-label='close sidebar'
 								className='drawer-overlay'
 							>
