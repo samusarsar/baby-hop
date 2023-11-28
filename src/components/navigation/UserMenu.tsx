@@ -37,10 +37,13 @@ const UserMenu = ({ userData }: { userData: UserData }) => {
 			>
 				<li className='menu-title'>{userData.username}</li>
 				<li>
-					<Link href={`/profile/${userData.username}`}>Profile</Link>
+					<Link href={`/dashboard`}>Dashboard</Link>
 				</li>
 				<li>
-					<Link href='/bookings'>My Bookings</Link>
+					<Link href={`/dashboard/profile`}>My Profile</Link>
+				</li>
+				<li>
+					<Link href={`/dashboard/bookings`}>My Bookings</Link>
 				</li>
 				<li>
 					<button
