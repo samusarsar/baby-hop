@@ -6,7 +6,7 @@ import { FaArrowRightToBracket } from 'react-icons/fa6';
 const MiniDashboardNav = () => {
 	return (
 		<div className='flex sm:hidden justify-center items-center p-4 fixed bottom-0 w-full rounded-lg'>
-			<ul className='menu menu-horizontal bg-base-300 rounded-box'>
+			<ul className='menu menu-horizontal bg-base-300 rounded-box shadow-md'>
 				<li>
 					<Link
 						href={'/dashboard'}

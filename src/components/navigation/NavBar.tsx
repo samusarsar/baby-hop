@@ -23,7 +23,7 @@ const NavBar = () => {
 				className='drawer-toggle'
 			/>
 			<div className='drawer-content flex flex-col'>
-				<div className='navbar bg-base-300 h-[87px] md:px-6 lg:px-8 border-b-2 border-base-neutral'>
+				<div className='navbar bg-base-300 h-[87px] md:px-6 lg:px-8 shadow-md'>
 					<div className='navbar-start'>
 						<div className='flex-none lg:hidden'>
 							<label
