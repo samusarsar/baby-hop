@@ -54,7 +54,8 @@ const useAuth = () => {
 	};
 
 	const signOut = async () => {
-		await signOutNextAuth();
+		router.replace('/..');
+		await signOutNextAuth({ redirect: false });
 		dispatch(signOutSuccess());
 	};
 
