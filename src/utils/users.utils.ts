@@ -47,3 +47,9 @@ export const getUser = async (email: string) => {
 
 	return userData;
 };
+
+export const deleteUser = async (email: string) => {
+	await connect();
+
+	await User.deleteOne({ email });
+};
