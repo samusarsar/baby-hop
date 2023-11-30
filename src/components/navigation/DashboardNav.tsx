@@ -1,13 +1,16 @@
 'use client';
 
+import useAuth from '@/hooks/useAuth';
 import Link from 'next/link';
 import React from 'react';
 import { FaCalendarCheck, FaHome, FaUser } from 'react-icons/fa';
 import { FaArrowRightToBracket } from 'react-icons/fa6';
 
 const DashboardNav = () => {
+	const { signOut } = useAuth();
+
 	return (
-		<div className='hidden sm:flex flex-col h-full justify-between items-center p-4 bg-base-300'>
+		<div className='hidden sm:flex flex-col h-full justify-between items-center p-4 bg-base-300 shadow-md'>
 			<ul className='menu bg-base-200 rounded-box'>
 				<li>
 					<Link href={'/dashboard'}>
@@ -28,15 +31,14 @@ const DashboardNav = () => {
 					</Link>
 				</li>
 			</ul>
-			<Link
-				href={'/dashboard'}
-				className='w-full'
+
+			<button
+				className='btn btn-error w-full'
+				onClick={signOut}
 			>
-				<button className='btn btn-error w-full'>
-					<FaArrowRightToBracket size={20} />
-					Log Out
-				</button>
-			</Link>
+				<FaArrowRightToBracket size={20} />
+				Log Out
+			</button>
 		</div>
 	);
 };

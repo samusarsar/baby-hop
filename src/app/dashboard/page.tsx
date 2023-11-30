@@ -5,9 +5,7 @@ import { RootState } from '@/store/store';
 import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
-	const { signedIn, userData } = useSelector(
-		(state: RootState) => state.auth
-	);
+	const { userData } = useSelector((state: RootState) => state.auth);
 
 	const { signOut } = useAuth();
 

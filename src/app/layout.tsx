@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import '../styles/globals.css';
 import NavBar from '@/components/navigation/NavBar';
 import Providers from '../components/providers/Providers';
+import { ReactNode } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 	description: 'This is the official BabyHop platform!',
 };
 
-const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = ({ children }: { children: ReactNode }) => {
 	return (
 		<html
 			lang='en'
