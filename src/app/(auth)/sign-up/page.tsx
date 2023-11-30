@@ -118,7 +118,10 @@ function Signup() {
 
 	return (
 		<div>
-			<BaseCard title='Sign up to join'>
+			<BaseCard
+				title='Sign up to join'
+				cardStyles='shadow-xl'
+			>
 				<form
 					className='min-w-full'
 					onSubmit={handleSubmit}

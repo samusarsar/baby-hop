@@ -24,7 +24,7 @@ function SignIn() {
 		} catch (error: any) {
 			console.log(error.message);
 			if (error.message === 'Invalid credentials') {
-				setError('Email and password do not match!');
+				setError('Wrong email and/or password!');
 			} else {
 				setError(
 					'Could not sign in right now. Please try again later!'
@@ -53,7 +53,7 @@ function SignIn() {
 								name='email'
 								className={
 									'input input-bordered w-full max-w-xs text-base-content' +
-									(!!error ? ' border-2 border-error' : '')
+									(error ? ' border-2 border-error' : '')
 								}
 							/>
 						</FormInput>
@@ -64,7 +64,7 @@ function SignIn() {
 								name='password'
 								className={
 									'input input-bordered w-full max-w-xs text-base-content' +
-									(!!error ? ' border-2 border-error' : '')
+									(error ? ' border-2 border-error' : '')
 								}
 							/>
 						</FormInput>

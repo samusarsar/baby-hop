@@ -5,20 +5,25 @@ const BaseCard = ({
 	image,
 	imageBottom,
 	imagePadded,
+	cardColor,
 	cardStyles,
 	children,
 }: {
-	title: string;
+	title?: string;
 	image?: string;
 	imageBottom?: boolean;
 	imagePadded?: boolean;
+	cardColor?: string;
 	cardStyles?: string;
 	children: React.ReactNode;
 }) => {
 	return (
 		<div
 			className={
-				'card md:w-96 bg-neutral text-neutral-content' +
+				'card md:w-96' +
+				(!!cardColor
+					? ` ${cardColor}`
+					: ' bg-neutral text-neutral-content') +
 				(!!cardStyles ? ` ${cardStyles}` : '')
 			}
 		>
@@ -32,7 +37,7 @@ const BaseCard = ({
 				</figure>
 			)}
 			<div className='card-body items-center text-center'>
-				<h2 className='card-title text-2xl'>{title}</h2>
+				{title && <h2 className='card-title text-2xl'>{title}</h2>}
 				{children}
 			</div>
 			{image && imageBottom && (
