@@ -32,9 +32,9 @@ const DashboardLayout = ({ children }: { children: ReactNode }) => {
 							</li>
 						)}
 					</ul>
-					<div className='divider my-1'></div>
+					<div className='divider my-1' />
 				</div>
-				<div className='max-w-6xl overflow-y-auto pb-4'>
+				<div className='max-w-6xl overflow-y-auto pb-4 flex-grow'>
 					{children}
 					<MiniDashboardNav />
 				</div>

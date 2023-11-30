@@ -9,7 +9,6 @@ import {
 	isPasswordValid,
 	isUsernameValid,
 } from '@/utils/validation.utils';
-import { useRouter } from 'next/navigation';
 import React, { ChangeEvent, FocusEvent, FormEvent, useState } from 'react';
 import {
 	NAME_MAX_LENGTH,
@@ -37,8 +36,6 @@ function Signup() {
 		generalErr: '',
 	});
 	const [isLoading, setIsLoading] = useState(false);
-
-	const router = useRouter();
 
 	const { signUp } = useAuth();
 
@@ -138,7 +135,7 @@ function Signup() {
 									id='firstName'
 									className={
 										'input input-bordered w-full max-w-xs text-base-content' +
-										(!!errors.firstName
+										(errors.firstName
 											? ' border-2 border-error'
 											: '')
 									}
@@ -156,7 +153,7 @@ function Signup() {
 									id='lastName'
 									className={
 										'input input-bordered w-full max-w-xs text-base-content' +
-										(!!errors.lastName
+										(errors.lastName
 											? ' border-2 border-error'
 											: '')
 									}
@@ -176,7 +173,7 @@ function Signup() {
 									id='username'
 									className={
 										'input input-bordered w-full max-w-xs text-base-content' +
-										(!!errors.username
+										(errors.username
 											? ' border-2 border-error'
 											: '')
 									}
@@ -194,7 +191,7 @@ function Signup() {
 									id='email'
 									className={
 										'input input-bordered w-full max-w-xs text-base-content' +
-										(!!errors.email
+										(errors.email
 											? ' border-2 border-error'
 											: '')
 									}
@@ -212,7 +209,7 @@ function Signup() {
 									id='password'
 									className={
 										'input input-bordered w-full max-w-xs text-base-content' +
-										(!!errors.password
+										(errors.password
 											? ' border-2 border-error'
 											: '')
 									}

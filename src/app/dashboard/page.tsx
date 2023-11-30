@@ -10,7 +10,7 @@ const Dashboard = () => {
 	const { signOut } = useAuth();
 
 	return (
-		<div>
+		<div className='w-full min-h-full px-4'>
 			Dashboard
 			<p>signed in as {userData.username}</p>
 			<button onClick={signOut}>Log Out</button>
