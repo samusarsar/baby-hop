@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import DetailsTab from './tabs/DetailsTab';
+import ReviewsTab from './tabs/ReviewsTab';
+import StoreTab from './tabs/StoreTab';
 
 const ProfileTabs = () => {
 	const [activeTab, setActiveTab] = useState('details');
@@ -38,7 +40,7 @@ const ProfileTabs = () => {
 				role='tabpanel'
 				className='tab-content bg-base-100 border-base-300 rounded-box p-6'
 			>
-				Tab content 2
+				<ReviewsTab />
 			</div>
 
 			<input
@@ -54,7 +56,7 @@ const ProfileTabs = () => {
 				role='tabpanel'
 				className='tab-content bg-base-100 border-base-300 rounded-box p-6'
 			>
-				Tab content 3
+				<StoreTab />
 			</div>
 		</div>
 	);
