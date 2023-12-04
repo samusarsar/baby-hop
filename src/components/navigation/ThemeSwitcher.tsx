@@ -16,7 +16,7 @@ const ThemeSwitcher = () => {
 				<input
 					type='checkbox'
 					checked={!!isDark}
-					className='theme-controller'
+					className='theme-controller hidden'
 					value='dim'
 					onChange={() => dispatch(toggleTheme())}
 				/>

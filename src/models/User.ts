@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema(
@@ -22,14 +23,9 @@ const UserSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		avatarUrl: {
-			type: String,
-			required: false,
-		},
-		hasStore: {
-			type: Boolean,
-			required: false,
-		},
+		avatarUrl: String,
+		hasStore: Boolean,
+		storeId: ObjectId,
 	},
 	{ timestamps: true }
 );

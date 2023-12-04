@@ -8,6 +8,7 @@ const BaseCard = ({
 	cardColor,
 	cardStyles,
 	children,
+	onClick = () => {},
 }: {
 	title?: string;
 	image?: string;
@@ -16,6 +17,7 @@ const BaseCard = ({
 	cardColor?: string;
 	cardStyles?: string;
 	children: React.ReactNode;
+	onClick?: () => void;
 }) => {
 	return (
 		<div
@@ -26,6 +28,7 @@ const BaseCard = ({
 					: ' bg-neutral text-neutral-content') +
 				(!!cardStyles ? ` ${cardStyles}` : '')
 			}
+			onClick={onClick}
 		>
 			{image && !imageBottom && (
 				<figure className={imagePadded ? 'px-10 pt-10' : ''}>

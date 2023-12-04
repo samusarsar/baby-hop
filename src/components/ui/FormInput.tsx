@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent } from 'react';
+import React from 'react';
 
 const FormInput = ({
 	label,
@@ -12,11 +12,9 @@ const FormInput = ({
 	children: React.ReactNode;
 }) => {
 	return (
-		<div className='form-control w-full max-w-xs'>
+		<div className='form-control'>
 			<label className='label'>
-				<span className='label-text text-neutral-content text-lg'>
-					{label}
-				</span>
+				<span className='label-text text-lg'>{label}</span>
 			</label>
 			{children}
 			{isInvalid && error && (
