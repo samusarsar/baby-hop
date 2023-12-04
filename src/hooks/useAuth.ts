@@ -13,16 +13,23 @@ const useAuth = () => {
 	const router = useRouter();
 
 	const signUp = async (userData: NewUserData) => {
-		let userExists;
+		let emailExists;
+		let usernameExists;
 		try {
-			userExists = await checkIfUserExists(userData.email);
+			emailExists = await checkIfUserExists('email', userData.email);
+			usernameExists = await checkIfUserExists(
+				'username',
+				userData.username
+			);
 		} catch (error) {
 			throw new Error(
 				'Could not complete registration. Please try again later!'
 			);
 		}
 
-		if (userExists) throw new Error('User already exists!');
+		if (emailExists)
+			throw new Error('User with this email already exists!');
+		if (usernameExists) throw new Error('Username is taken!');
 
 		try {
 			await createUser(userData);

@@ -84,8 +84,19 @@ function Signup() {
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 
+		setErrors({
+			firstName: false,
+			lastName: false,
+			username: false,
+			email: false,
+			password: false,
+			generalErr: '',
+		});
+
 		if (
-			Object.values(errors).some((el) => !!el) ||
+			Object.values(errors)
+				.filter((el) => typeof el !== 'string')
+				.some((el) => !!el) ||
 			Object.values(userData).some((el) => !el)
 		) {
 			setErrors({
@@ -104,10 +115,16 @@ function Signup() {
 				generalErr: '',
 			});
 		} catch (error) {
-			setErrors({
-				...errors,
-				generalErr: 'Uh-oh! There was an problem signing up!',
-			});
+			if (error.message === 'User with this email already exists!') {
+				setErrors({ ...errors, generalErr: error.message });
+			} else if (error.message === 'Username is taken!') {
+				setErrors({ ...errors, generalErr: error.message });
+			} else {
+				setErrors({
+					...errors,
+					generalErr: 'Uh-oh! There was an problem signing up!',
+				});
+			}
 		} finally {
 			setIsLoading(false);
 		}
