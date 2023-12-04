@@ -1,6 +1,6 @@
 'use server';
 
-import { NewUserData } from '@/common/types';
+import { NewUserData, UserData } from '@/common/types';
 import connect from '@/lib/connect-db';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
@@ -20,11 +20,11 @@ export const createUser = async (userData: NewUserData) => {
 	});
 };
 
-export const checkIfUserExists = async (email: string) => {
+export const checkIfUserExists = async (key: string, value: any) => {
 	await connect();
 
 	return await User.findOne({
-		email,
+		[key]: value,
 	}).select('_id');
 };
 
@@ -35,7 +35,7 @@ export const getUser = async (email: string) => {
 		email,
 	});
 
-	const userData = {
+	const userData: UserData = {
 		id: res._id.toString(),
 		firstName: res.firstName,
 		lastName: res.lastName,
@@ -45,6 +45,11 @@ export const getUser = async (email: string) => {
 		updatedAt: res.updatedAt.toString(),
 	};
 
+	if (res.hasStore) {
+		userData.hasStore = res.hasStore;
+		userData.storeId = res.storeId.toString();
+	}
+
 	return userData;
 };
 
@@ -52,4 +57,13 @@ export const deleteUser = async (email: string) => {
 	await connect();
 
 	await User.deleteOne({ email });
+};
+
+export const updateUserData = async (
+	username: string,
+	updates: { [key: string]: any }
+) => {
+	await connect();
+
+	await User.updateOne({ username }, updates);
 };
