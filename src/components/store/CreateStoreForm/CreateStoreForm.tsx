@@ -104,7 +104,7 @@ const CreateStoreForm = () => {
 				generalErr: '',
 			});
 
-			router.replace('/dashboard');
+			router.replace('/dashboard/store');
 			setIsLoading(false);
 		} catch (error) {
 			setErrors({

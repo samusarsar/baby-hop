@@ -1,12 +1,18 @@
 'use client';
 
 import useAuth from '@/hooks/useAuth';
+import { RootState } from '@/store/store';
 import Link from 'next/link';
 import React from 'react';
-import { FaCalendarCheck, FaHome, FaUser } from 'react-icons/fa';
+import { FaCalendarCheck, FaHome, FaStore, FaUser } from 'react-icons/fa';
 import { FaArrowRightToBracket } from 'react-icons/fa6';
+import { useSelector } from 'react-redux';
 
 const DashboardNav = () => {
+	const {
+		userData: { hasStore },
+	} = useSelector((state: RootState) => state.auth);
+
 	const { signOut } = useAuth();
 
 	return (
@@ -24,6 +30,17 @@ const DashboardNav = () => {
 						My Profile
 					</Link>
 				</li>
+				{hasStore && (
+					<li>
+						<Link
+							href={'/dashboard/store'}
+							className='h-full'
+						>
+							<FaStore size={20} />
+							My Store
+						</Link>
+					</li>
+				)}
 				<li>
 					<Link href={'/dashboard/bookings'}>
 						<FaCalendarCheck size={20} />
