@@ -5,11 +5,9 @@ import {
 	STORE_NAME_MIN_LENGTH,
 } from '@/common/constants';
 import FormInput from '@/components/ui/FormInput';
-import useAuth from '@/hooks/useAuth';
+import useStoreManagement from '@/hooks/useStore';
 import { RootState } from '@/store/store';
-import { setupStore } from '@/utils/stores.utils';
 import { isStoreNameValid } from '@/utils/validation.utils';
-import { useRouter } from 'next/navigation';
 import React, { ChangeEvent, FocusEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -32,9 +30,7 @@ const CreateStoreForm = () => {
 		userData: { username },
 	} = useSelector((state: RootState) => state.auth);
 
-	const router = useRouter();
-
-	const { updateAndSyncUserData } = useAuth();
+	const { createStore } = useStoreManagement();
 
 	const handleChange = (
 		e: ChangeEvent<
@@ -96,15 +92,13 @@ const CreateStoreForm = () => {
 
 		try {
 			setIsLoading(true);
-			const userUpdates = await setupStore(username, formData);
-			await updateAndSyncUserData('username', username, userUpdates);
+			await createStore(username, formData);
 
 			setErrors({
 				...errors,
 				generalErr: '',
 			});
 
-			router.replace('/dashboard/store');
 			setIsLoading(false);
 		} catch (error) {
 			setErrors({
