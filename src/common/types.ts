@@ -27,8 +27,7 @@ export type UserData = {
 export type StoreAddress = {
 	country: string;
 	city: string;
-	streetName: string;
-	streetNumber: string;
+	streetAddress: string;
 	additionalComments: string;
 };
 
