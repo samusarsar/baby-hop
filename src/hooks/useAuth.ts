@@ -1,6 +1,15 @@
 import { NewUserData, UserCredentials } from '@/common/types';
-import { signInSuccess, signOutSuccess } from '@/store/slices/authSlice';
-import { checkIfUserExists, createUser, getUser } from '@/utils/users.utils';
+import {
+	signInSuccess,
+	signOutSuccess,
+	updateUserData,
+} from '@/store/slices/authSlice';
+import {
+	checkIfUserExists,
+	createUser,
+	getUser,
+	updateUser,
+} from '@/utils/users.utils';
 import {
 	signIn as signInNextAuth,
 	signOut as signOutNextAuth,
@@ -53,7 +62,7 @@ const useAuth = () => {
 		if (res?.error) {
 			throw new Error('Invalid credentials');
 		} else {
-			const userData = await getUser(userCredentials.email);
+			const userData = await getUser('email', userCredentials.email);
 
 			router.replace('/dashboard');
 			dispatch(signInSuccess(userData));
@@ -66,10 +75,21 @@ const useAuth = () => {
 		dispatch(signOutSuccess());
 	};
 
+	const updateAndSyncUserData = async (
+		key: 'email' | 'username',
+		value: string,
+		updates: { [key: string]: any }
+	) => {
+		await updateUser(key, value, updates);
+		const updatedUserData = await getUser(key, value);
+		dispatch(updateUserData(updatedUserData));
+	};
+
 	return {
 		signUp,
 		signIn,
 		signOut,
+		updateAndSyncUserData,
 	};
 };
 
