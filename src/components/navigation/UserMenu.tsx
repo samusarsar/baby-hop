@@ -41,6 +41,11 @@ const UserMenu = ({ userData }: { userData: UserData }) => {
 				<li>
 					<Link href={`/dashboard/profile`}>My Profile</Link>
 				</li>
+				{userData.hasStore && (
+					<li>
+						<Link href={`/dashboard/store`}>My Store</Link>
+					</li>
+				)}
 				<li>
 					<Link href={`/dashboard/bookings`}>My Bookings</Link>
 				</li>
