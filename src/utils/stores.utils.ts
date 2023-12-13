@@ -22,5 +22,5 @@ export const setupStore = async (username: string, storeData: FormData) => {
 
 	const storeRes = await Store.create(newStoreData);
 
-	return await { hasStore: true, storeId: storeRes._id };
+	return await { hasStore: true, storeId: storeRes._id.toString() };
 };
