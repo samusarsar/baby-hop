@@ -2,6 +2,8 @@ import {
 	NAME_MAX_LENGTH,
 	NAME_MIN_LENGTH,
 	PASSWORD_MIN_LENGTH,
+	STORE_NAME_MAX_LENGTH,
+	STORE_NAME_MIN_LENGTH,
 	USERNAME_MAX_LENGTH,
 	USERNAME_MIN_LENGTH,
 } from '@/common/constants';
@@ -40,4 +42,17 @@ export const isPasswordValid = (password: string): boolean => {
 	const hasDigit = /\d/.test(password);
 
 	return isLengthValid && hasUpperCase && hasLowerCase && hasDigit;
+};
+
+export const isStoreNameValid = (storeName: string): boolean => {
+	return (
+		!!storeName &&
+		!!storeName.length &&
+		storeName.length >= STORE_NAME_MIN_LENGTH &&
+		storeName.length <= STORE_NAME_MAX_LENGTH
+	);
+};
+
+export const isBrandColorValid = (brandColor: string): boolean => {
+	return brandColor !== 'default';
 };

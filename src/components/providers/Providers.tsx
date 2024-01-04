@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 import { persistor, store } from '../../store/store';
 import { SessionProvider } from 'next-auth/react';
 import { PersistGate } from 'redux-persist/integration/react';
+import { FC, ReactNode } from 'react';
 
-const Providers: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Providers: FC<{ children: ReactNode }> = ({ children }) => {
 	return (
 		<Provider store={store}>
 			<PersistGate

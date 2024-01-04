@@ -20,7 +20,10 @@ export const createUser = async (userData: NewUserData) => {
 	});
 };
 
-export const checkIfUserExists = async (key: string, value: any) => {
+export const checkIfUserExists = async (
+	key: 'email' | 'username',
+	value: string
+) => {
 	await connect();
 
 	return await User.findOne({
@@ -28,11 +31,11 @@ export const checkIfUserExists = async (key: string, value: any) => {
 	}).select('_id');
 };
 
-export const getUser = async (email: string) => {
+export const getUser = async (key: 'email' | 'username', value: string) => {
 	await connect();
 
 	const res = await User.findOne({
-		email,
+		[key]: value,
 	});
 
 	const userData: UserData = {
@@ -53,17 +56,18 @@ export const getUser = async (email: string) => {
 	return userData;
 };
 
-export const deleteUser = async (email: string) => {
+export const deleteUser = async (key: 'email' | 'username', value: string) => {
 	await connect();
 
-	await User.deleteOne({ email });
+	await User.deleteOne({ [key]: value });
 };
 
-export const updateUserData = async (
-	username: string,
+export const updateUser = async (
+	key: 'email' | 'username',
+	value: string,
 	updates: { [key: string]: any }
 ) => {
 	await connect();
 
-	await User.updateOne({ username }, updates);
+	await User.updateOne({ [key]: value }, updates);
 };

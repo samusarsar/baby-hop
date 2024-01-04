@@ -6,16 +6,18 @@ const FormInput = ({
 	error,
 	children,
 }: {
-	label: string;
+	label?: string;
 	isInvalid?: boolean;
 	error?: string;
 	children: React.ReactNode;
 }) => {
 	return (
 		<div className='form-control'>
-			<label className='label'>
-				<span className='label-text text-lg'>{label}</span>
-			</label>
+			{label && (
+				<label className='label'>
+					<span className='label-text text-lg'>{label}</span>
+				</label>
+			)}
 			{children}
 			{isInvalid && error && (
 				<label className='label'>

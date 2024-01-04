@@ -13,6 +13,7 @@ const Dashboard = () => {
 		<div className='w-full min-h-full px-4'>
 			Dashboard
 			<p>signed in as {userData.username}</p>
+			<p>{userData.storeId}</p>
 			<button onClick={signOut}>Log Out</button>
 		</div>
 	);

@@ -9,11 +9,7 @@ const AddressSubSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	streetName: {
-		type: String,
-		required: true,
-	},
-	streetNumber: {
+	streetAddress: {
 		type: String,
 		required: true,
 	},
